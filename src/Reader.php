@@ -130,6 +130,7 @@ class Reader extends AbstractCsv
             }
             $iterator->next();
         }
+        
 
         return (array) $result;
     }
