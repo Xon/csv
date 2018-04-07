@@ -1,15 +1,15 @@
 <?php
 /**
-* This file is part of the League.csv library
-*
-* @license http://opensource.org/licenses/MIT
-* @link https://github.com/thephpleague/csv/
-* @version 8.2.3
-* @package League.csv
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of the League.csv library
+ *
+ * @license http://opensource.org/licenses/MIT
+ * @link https://github.com/thephpleague/csv/
+ * @version 8.2.3
+ * @package League.csv
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace League\Csv;
 
 use Generator;
@@ -91,11 +91,11 @@ class Reader extends AbstractCsv
         $iterator = $this->getQueryIterator();
         $iterator->rewind();
         while ($iterator->valid() && true === call_user_func(
-            $callable,
-            $iterator->current(),
-            $iterator->key(),
-            $iterator
-        )) {
+                $callable,
+                $iterator->current(),
+                $iterator->key(),
+                $iterator
+            )) {
             ++$index;
             $iterator->next();
         }
@@ -112,14 +112,26 @@ class Reader extends AbstractCsv
      *
      * @return array
      */
-    public function fetchOne($offset = 0)
+    public function fetchOne($offset = 0, $limit = 1)
     {
         $this->setOffset($offset);
-        $this->setLimit(1);
+        $this->setLimit($limit);
         $iterator = $this->getQueryIterator();
         $iterator->rewind();
 
-        return (array) $iterator->current();
+        $result = [];
+        if($limit === 1){
+            return (array)$iterator->current();
+        }
+
+        for($i=0; $i<=$limit; $i++){
+            if($iterator->current() !== null){
+                $result[] = $iterator->current();
+            }
+            $iterator->next();
+        }
+
+        return (array) $result;
     }
 
     /**
