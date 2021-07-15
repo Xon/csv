@@ -214,7 +214,7 @@ trait StreamFilter
     /**
      * @inheritdoc
      */
-    abstract public function validateString($str);
+    abstract static public function validateString($str);
 
     /**
      * Detect if the stream filter is already present
