@@ -110,7 +110,7 @@ trait RowFilter
     /**
      * @inheritdoc
      */
-    abstract protected function validateString($str);
+    abstract static protected function validateString($str);
 
     /**
      * Remove a validator from the collection
