@@ -208,7 +208,7 @@ trait StreamFilter
      */
     protected function sanitizeStreamFilter($filter_name)
     {
-        return urldecode($this->validateString($filter_name));
+        return urldecode(self::validateString($filter_name));
     }
 
     /**
