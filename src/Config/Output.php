@@ -57,7 +57,7 @@ trait Output
     public function setInputEncoding($str)
     {
         $str = str_replace('_', '-', $str);
-        $str = filter_var($str, FILTER_SANITIZE_STRING, ['flags' => FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH]);
+        $str = filter_var($str, FILTER_UNSAFE_RAW, ['flags' => FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH]);
         if (empty($str)) {
             throw new InvalidArgumentException('you should use a valid charset');
         }
@@ -178,7 +178,7 @@ trait Output
     public function output($filename = null)
     {
         if (null !== $filename) {
-            $filename = filter_var($filename, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+            $filename = filter_var($filename, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW);
             header('Content-Type: text/csv');
             header('Content-Transfer-Encoding: binary');
             header("Content-Disposition: attachment; filename=\"$filename\"");
