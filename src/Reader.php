@@ -41,7 +41,7 @@ class Reader extends AbstractCsv
      *
      * @return array
      */
-    public function fetchAll(callable $callable = null)
+    public function fetchAll(?callable $callable = null)
     {
         return iterator_to_array($this->applyCallable($this->getQueryIterator(), $callable), false);
     }
@@ -53,7 +53,7 @@ class Reader extends AbstractCsv
      *
      * @return Iterator
      */
-    public function fetch(callable $callable = null)
+    public function fetch(?callable $callable = null)
     {
         return $this->applyCallable($this->getQueryIterator(), $callable);
     }
@@ -66,7 +66,7 @@ class Reader extends AbstractCsv
      *
      * @return Iterator
      */
-    protected function applyCallable(Iterator $iterator, callable $callable = null)
+    protected function applyCallable(Iterator $iterator, ?callable $callable = null)
     {
         if (null !== $callable) {
             return new MapIterator($iterator, $callable);
@@ -130,7 +130,7 @@ class Reader extends AbstractCsv
             }
             $iterator->next();
         }
-        
+
 
         return (array) $result;
     }
@@ -147,7 +147,7 @@ class Reader extends AbstractCsv
      *
      * @return Iterator
      */
-    public function fetchColumn($column_index = 0, callable $callable = null)
+    public function fetchColumn($column_index = 0, ?callable $callable = null)
     {
         $column_index = $this->validateInteger($column_index, 0, 'the column index must be a positive integer or 0');
 
@@ -188,7 +188,7 @@ class Reader extends AbstractCsv
      *
      * @return array
      */
-    public function fetchPairsWithoutDuplicates($offset_index = 0, $value_index = 1, callable $callable = null)
+    public function fetchPairsWithoutDuplicates($offset_index = 0, $value_index = 1, ?callable $callable = null)
     {
         return iterator_to_array($this->fetchPairs($offset_index, $value_index, $callable), true);
     }
@@ -207,7 +207,7 @@ class Reader extends AbstractCsv
      *
      * @return Generator
      */
-    public function fetchPairs($offset_index = 0, $value_index = 1, callable $callable = null)
+    public function fetchPairs($offset_index = 0, $value_index = 1, ?callable $callable = null)
     {
         $offset_index = $this->validateInteger($offset_index, 0, 'the offset column index must be a positive integer or 0');
         $value_index = $this->validateInteger($value_index, 0, 'the value column index must be a positive integer or 0');
@@ -243,7 +243,7 @@ class Reader extends AbstractCsv
      *
      * @return Iterator
      */
-    public function fetchAssoc($offset_or_keys = 0, callable $callable = null)
+    public function fetchAssoc($offset_or_keys = 0, ?callable $callable = null)
     {
         $keys = $this->getAssocKeys($offset_or_keys);
         $keys_count = count($keys);
